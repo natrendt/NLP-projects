@@ -14,14 +14,14 @@ def handle_gensim_query(query, ddir, threshold, N):
     :return: nothing.
     """
     print("Results:")
-    global N, Threshold
+    #global N, Threshold
     acts = json.load(open(f"{ddir}/downloaded_acts.json"))
     dictionary = Dictionary.load(f"{ddir}/dictionary.pkl")
     bm25_index = OkapiBM25Model.load(f"{ddir}/bm25_index.pkl")
     tfidf_model = TfidfModel(dictionary=dictionary, smartirs='bnn')
     tfidf_query = tfidf_model[dictionary.doc2bow(query)]
     similarities = bm25_index[tfidf_query]
-    i = 1
+    i = 0
     for (s, n) in sorted(zip(similarities, acts),
                          key=lambda x: x[0], reverse=True):
         i += 1
